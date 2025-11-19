@@ -1,0 +1,50 @@
+# Core dependencies
+aiohttp==3.9.1
+aiofiles==23.2.1
+python-dotenv==1.0.0
+pydantic==2.5.0
+pydantic-settings==2.1.0
+
+# Flask & Web Framework
+Flask==3.0.0
+Flask-CORS==4.0.0
+Flask-SQLAlchemy==3.1.1
+Werkzeug==3.0.1
+
+# Database
+SQLAlchemy==2.0.23
+psycopg2-binary==2.9.9
+
+# Vault Integration (Optional)
+hvac==1.2.1
+
+# Security & Encryption
+cryptography==41.0.7
+PyJWT==2.8.1
+
+# Monitoring & Logging
+python-json-logger==2.0.7
+
+# Testing
+pytest==7.4.3
+pytest-asyncio==0.21.1
+pytest-cov==4.1.0
+pytest-mock==3.12.0
+
+# Development
+black==23.12.0
+flake8==6.1.0
+mypy==1.7.1
+isort==5.13.2
+pre-commit==3.5.0
+
+# Production Server
+gunicorn==21.2.0
+gevent==23.9.1
+
+# Documentation
+Sphinx==7.2.6
+sphinx-rtd-theme==2.0.0
+
+# Rate Limiting
+slowapi==0.1.9
