@@ -1,0 +1,109 @@
+Screen {
+    background: #1A1A2E;
+    color: #00F5FF;
+}
+
+/* Tri-Panel Layout */
+#main-layout {
+    layout: grid;
+    grid-size: 3 1;
+    grid-columns: 1fr 1fr 1fr;
+    height: 100%;
+}
+
+/* Common Panel Styling */
+.panel {
+    background: #16213E;
+    border: solid #8B00FF;
+    height: 100%;
+    margin: 1;
+    padding: 1;
+    box-sizing: border-box;
+}
+
+.panel-title {
+    color: #FF006E;
+    text-align: center;
+    text-style: bold;
+    border-bottom: solid #FF006E;
+    margin-bottom: 1;
+}
+
+/* Specific Panels */
+#log-panel {
+    border-title-color: #00F5FF;
+}
+
+#metrics-panel {
+    border-title-color: #FF006E;
+}
+
+#failure-panel {
+    border-title-color: #8B00FF;
+}
+
+/* Widgets */
+RichLog {
+    background: #16213E;
+    color: #00F5FF;
+    scrollbar-color: #FF006E;
+    scrollbar-color-hover: #8B00FF;
+}
+
+DataTable {
+    background: #16213E;
+    color: #00F5FF;
+    height: 100%;
+    border: none;
+}
+
+DataTable > .datatable--header {
+    background: #8B00FF;
+    color: #1A1A2E;
+    text-style: bold;
+}
+
+DataTable > .datatable--cursor {
+    background: #FF006E;
+    color: #1A1A2E;
+}
+
+/* Footer */
+Footer {
+    background: #1A1A2E;
+    color: #FF006E;
+    dock: bottom;
+}
+
+Footer > .footer--highlight {
+    background: #00F5FF;
+    color: #1A1A2E;
+}
+
+/* Pre-Flight Modal */
+PreFlightModal {
+    align: center middle;
+}
+
+#preflight-dialog {
+    background: #16213E;
+    border: thick #FF006E;
+    padding: 2;
+    width: 60;
+    height: auto;
+}
+
+Label {
+    color: #00F5FF;
+}
+
+Button {
+    background: #8B00FF;
+    color: #FFFFFF;
+    border: none;
+    margin: 1;
+}
+
+Button:focus {
+    background: #FF006E;
+}

@@ -1,0 +1,64 @@
+fetcher:
+  max_retries: 3
+  max_workers: 20
+  sources:
+    http_file: data/sources/http_sources.txt
+    telegram_file: data/sources/telegram_channels_large.json
+  timeout: 20
+  user_agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML,
+    like Gecko) Chrome/91.0.4472.124 Safari/537.36
+output:
+  best_of_limit: 100
+  categorize_by:
+  - protocol
+  - country
+  directory: output
+  filename_format: '{protocol}_{country}.txt'
+  formats:
+  - json
+  - txt
+  - yaml
+parser:
+  parse_modes:
+  - html
+  - xml
+  - json
+  - base64
+  protocols:
+  - vmess
+  - vless
+  - trojan
+  - shadowsocks
+  - tuic
+  - hysteria
+  - hysteria2
+  - juicity
+  - ssh
+  - wireguard
+processor:
+  deduplicate: true
+  filters:
+    allowed_countries: []
+    allowed_protocols: []
+    blocked_countries:
+    - IR
+    - CN
+    - RU
+    exclude_ports: []
+    min_score: 0
+  geoip_db: data/geoip/GeoLite2-Country.mmdb
+  scoring:
+    weights:
+      alpn: 2
+      flow: 2
+      headerType: 1
+      mport: 1
+      obfs: 1
+      path: 1
+      security: 2
+      sni: 2
+validator:
+  enabled: true
+  max_latency: 2000
+  max_workers: 50
+  timeout: 2
