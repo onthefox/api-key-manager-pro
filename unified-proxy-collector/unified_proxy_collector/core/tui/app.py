@@ -6,13 +6,13 @@ from textual.binding import Binding
 from textual.worker import Worker
 import asyncio
 
-from core.tui.widgets import LogPanel, MetricsPanel, FailurePanel
-from core.fetcher import UnifiedFetcher
-from core.parser import ConfigParser
-from core.processor import Processor
-from core.validator import Validator
-from core.output import OutputManager
-from core.config import ConfigLoader
+from unified_proxy_collector.core.tui.widgets import LogPanel, MetricsPanel, FailurePanel
+from unified_proxy_collector.core.fetcher import UnifiedFetcher
+from unified_proxy_collector.core.parser import ConfigParser
+from unified_proxy_collector.core.processor import Processor
+from unified_proxy_collector.core.validator import Validator
+from unified_proxy_collector.core.output import OutputManager
+from unified_proxy_collector.core.config import ConfigLoader
 
 class PreFlightModal(ModalScreen):
     """Configuration Dialog before start."""

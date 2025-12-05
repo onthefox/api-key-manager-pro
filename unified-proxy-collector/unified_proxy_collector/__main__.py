@@ -1,6 +1,6 @@
 import argparse
 import sys
-from core.tui.app import ProxyCollectorApp
+from unified_proxy_collector.core.tui.app import ProxyCollectorApp
 
 def main():
     parser = argparse.ArgumentParser(description="Unified Proxy Collector")
@@ -16,12 +16,12 @@ def main():
         # Run legacy CLI mode
         from rich.console import Console
         from rich.panel import Panel
-        from core.config import ConfigLoader
-        from core.fetcher import UnifiedFetcher
-        from core.parser import ConfigParser
-        from core.processor import Processor
-        from core.validator import Validator
-        from core.output import OutputManager
+        from unified_proxy_collector.core.config import ConfigLoader
+        from unified_proxy_collector.core.fetcher import UnifiedFetcher
+        from unified_proxy_collector.core.parser import ConfigParser
+        from unified_proxy_collector.core.processor import Processor
+        from unified_proxy_collector.core.validator import Validator
+        from unified_proxy_collector.core.output import OutputManager
         import json
 
         console = Console()
