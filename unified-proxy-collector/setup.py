@@ -5,6 +5,7 @@ setup(
     version="1.0.0",
     description="A unified high-performance proxy collector merging features from V2Ray-Collector, TG-Parser, and Telegram-Configs-Collector.",
     packages=find_packages(),
+        py_modules=["main"],
     install_requires=[
         "beautifulsoup4>=4.9.0",
         "requests>=2.28.0",
