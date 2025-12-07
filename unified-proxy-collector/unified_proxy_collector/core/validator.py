@@ -18,7 +18,10 @@ class Validator:
             latency = (time.time() - start_time) * 1000
             sock.close()
             return latency
-        except:
+        except (socket.timeout, ConnectionRefusedError, OSError):
+            return None
+        except Exception as e:
+            # Log unexpected errors if logging was set up in this module, or just return None
             return None
 
     def validate_configs(self, processed_configs):
@@ -46,9 +49,13 @@ class Validator:
                     # Regex fallback for port if not extracted by Processor
                     if (not port) and ip and item['config']:
                         import re
-                        match = re.search(f"{re.escape(ip)}:(\\d+)", item['config'])
-                        if match:
-                            port = match.group(1)
+                        try:
+                            # Basic port extraction fallback
+                            match = re.search(f"{re.escape(ip)}:(\\d+)", item['config'])
+                            if match:
+                                port = match.group(1)
+                        except Exception:
+                            pass
 
                     if ip and port:
                         future = executor.submit(self.validate_tcp, ip, port)

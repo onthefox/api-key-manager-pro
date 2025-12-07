@@ -1,9 +1,12 @@
 import requests
 import time
 import concurrent.futures
+import logging
 from bs4 import BeautifulSoup
 from rich.progress import Progress, SpinnerColumn, BarColumn, TextColumn, TimeRemainingColumn
 from rich.console import Console
+
+logger = logging.getLogger("unified_proxy_collector")
 
 class UnifiedFetcher:
     def __init__(self, config):
@@ -25,10 +28,12 @@ class UnifiedFetcher:
                 response = self.session.get(url, timeout=self.timeout)
                 response.raise_for_status()
                 return response.text
-            except requests.RequestException:
+            except requests.RequestException as e:
+                logger.debug(f"Attempt {attempt + 1} failed for {url}: {e}")
                 if attempt < self.max_retries - 1:
                     time.sleep(1)
                 continue
+        logger.warning(f"Failed to fetch {url} after {self.max_retries} attempts")
         return None
 
     def fetch_telegram_channel(self, channel_name):
