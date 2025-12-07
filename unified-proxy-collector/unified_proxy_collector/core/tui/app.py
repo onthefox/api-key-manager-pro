@@ -20,16 +20,26 @@ class PreFlightModal(ModalScreen):
         with Container(id="preflight-dialog"):
             yield Label("SYSTEM PRE-FLIGHT CONFIGURATION", classes="panel-title")
             yield Label("Proxy Protocols:")
-            yield Checkbox("VMess / VLESS", value=True)
-            yield Checkbox("Trojan / ShadowSocks", value=True)
-            yield Checkbox("Hysteria / TUIC", value=True)
+            yield Checkbox("VMess / VLESS", value=True, id="vmess-vless-checkbox")
+            yield Checkbox("Trojan / ShadowSocks", value=True, id="trojan-shadowsocks-checkbox")
+            yield Checkbox("Hysteria / TUIC", value=True, id="hysteria-tuic-checkbox")
             yield Label("Performance:")
             yield Input(placeholder="Worker Threads (e.g. 50)", id="worker-input")
             yield Button("INITIATE SEQUENCE", variant="primary", id="start-btn")
 
     def on_button_pressed(self, event: Button.Pressed) -> None:
         if event.button.id == "start-btn":
-            self.dismiss(True)
+                        # Capture user configuration from form
+            worker_input = self.query_one("#worker-input", Input)
+            config_data = {
+                "worker_threads": int(worker_input.value) if worker_input.value.isdigit() else 50,
+                "protocols": {
+                    "vmess_vless": self.query_one("#vmess-vless-checkbox", Checkbox).value,
+                    "trojan_shadowsocks": self.query_one("#trojan-shadowsocks-checkbox", Checkbox).value,
+                    "hysteria_tuic": self.query_one("#hysteria-tuic-checkbox", Checkbox).value,
+                }
+            }
+            self.dismiss(config_data)
 
 class ProxyCollectorApp(App):
     """Tri-Panel TUI Orchestrator"""
@@ -73,8 +83,14 @@ class ProxyCollectorApp(App):
     def on_mount(self) -> None:
         self.push_screen(PreFlightModal(), self.on_preflight_complete)
 
-    def on_preflight_complete(self, result: bool) -> None:
+    def on_preflight_complete(self, result: dict) -> None:
         if result:
+                        # Store user preferences in config
+            if isinstance(result, dict):
+                # Update config with user-selected worker threads
+                # Note: You may want to store this in a specific config section
+                # For now, we log it (actual config update depends on your config structure)
+                self.log_msg(f"User Config: {result['worker_threads']} workers, Protocols: {result['protocols']}", "INFO")
             self.log_msg("System Initialized. Press SPACE to start.")
 
     def action_toggle_workflow(self) -> None:
