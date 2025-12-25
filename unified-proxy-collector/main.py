@@ -1,8 +1,5 @@
 import json
-import argparse
 import sys
-import threading
-import time
 import signal
 from rich.console import Console
 from rich.panel import Panel

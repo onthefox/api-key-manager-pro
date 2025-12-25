@@ -4,7 +4,7 @@ import asyncio
 import hashlib
 import hmac
 import time
-from datetime import datetime, timedelta
+from datetime import timedelta
 from typing import Dict, Optional, Tuple
 
 from .exceptions import (
