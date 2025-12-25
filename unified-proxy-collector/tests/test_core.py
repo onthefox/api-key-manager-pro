@@ -39,8 +39,10 @@ class TestUnifiedCollector(unittest.TestCase):
         processed = processor.process(self.sample_configs)
 
         self.assertEqual(len(processed), 3)
-        vmess_item = next(p for p in processed if p['info']['protocol'] == 'vmess')
-
+        try:
+            vmess_item = next(p for p in processed if p['info']['protocol'] == 'vmess')
+        except StopIteration:
+            self.fail("No vmess item found in processed configs")
         # Check Enrichment (IP extraction)
         self.assertEqual(vmess_item['info']['ip'], "127.0.0.1")
         self.assertEqual(vmess_item['info']['port'], "443")
