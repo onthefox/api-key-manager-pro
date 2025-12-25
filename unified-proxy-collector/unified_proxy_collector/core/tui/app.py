@@ -3,7 +3,6 @@ from textual.containers import Container
 from textual.widgets import Header, Footer, Button, Label, Checkbox, Input
 from textual.screen import ModalScreen
 from textual.binding import Binding
-from textual.worker import Worker
 import asyncio
 
 from unified_proxy_collector.core.tui.widgets import LogPanel, MetricsPanel, FailurePanel

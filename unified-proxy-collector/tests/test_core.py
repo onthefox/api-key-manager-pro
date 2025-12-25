@@ -1,9 +1,6 @@
 import unittest
-import os
-import json
-from unittest.mock import MagicMock, patch
+from unittest.mock import patch
 from core.config import ConfigLoader
-from core.fetcher import UnifiedFetcher
 from core.parser import ConfigParser
 from core.processor import Processor
 from core.validator import Validator

@@ -1,5 +1,4 @@
 import argparse
-import sys
 from unified_proxy_collector.core.tui.app import ProxyCollectorApp
 
 def main():

@@ -1,6 +1,6 @@
-from textual.widgets import RichLog, Static, DataTable, Header, Footer
+from textual.widgets import RichLog, Static, DataTable
 from textual.app import ComposeResult
-from textual.containers import Container, Vertical
+from textual.containers import Vertical
 from rich.text import Text
 
 class PanelHeader(Static):
