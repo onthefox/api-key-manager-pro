@@ -31,14 +31,39 @@ API Key Manager Pro is a battle-tested async API key validation system designed 
 
 ### Core Security
 - ⚡ **Async/Await Architecture** - Non-blocking operations leveraging `asyncio` for concurrent processing
-- 🔐 **HMAC-SHA256 Validation** - Cryptographically secure signature generation and verification
+- 🔐 **HMAC-SHA256 Validation** - Cryptographically secure signature generation and verification. Signatures are computed over `"{key}:{timestamp}"`, binding every request to its timestamp and preventing replay of captured requests beyond the validation window. Use the reference helper `core.sign_request(key, secret, timestamp)` on the client side.
 - 🛡️ **Constant-Time Comparison** - Prevents timing attacks using `hmac.compare_digest()`
 - 🔄 **Configurable Validation Windows** - 5 minutes to 30+ days (default: 6 hours)
 - ⏱️ **Clock Skew Tolerance** - Configurable tolerance (default: 60 seconds) for distributed systems
-
+- 🧯 **Fail-Fast Configuration** - `Settings.validate()` refuses to boot with a missing `SECRET_KEY` outside DEBUG mode (no hardcoded default).
 
 ### Advanced Features
 - 📦 **Modular Architecture** - Clean separation of concerns, easily extensible
+- 🗃️ **Bounded LRU Validation Cache** - Memory-safe under adversarial load; `validator.invalidate_key()` / key revocation purge cached approvals immediately.
+
+## 🚀 Quick Start
+
+```python
+import time
+from core import KeyManager, sign_request
+
+manager = KeyManager()
+
+# 1. Register a key (the plaintext secret is never echoed back)
+await manager.create_key("client-1", secret="<random-secret>", metadata={"tier": "gold"})
+
+# 2. Client signs key + timestamp
+ts = int(time.time())
+signature = sign_request("client-1", "<random-secret>", ts)
+
+# 3. Server validates
+ok = await manager.validate_key("client-1", signature, timestamp=ts)  # True
+
+# 4. Revocation takes effect immediately (cached validations purged)
+await manager.revoke_key("client-1")  # subsequent validate_key -> KeyRevokedError
+```
+
+Run tests: `pip install pytest pytest-asyncio && python -m pytest tests/`
 
 ---
 
