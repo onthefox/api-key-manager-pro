@@ -8,10 +8,11 @@ from .exceptions import (
     InvalidSignatureError,
     KeyExpiredError,
     KeyNotFoundError,
+    KeyRevokedError,
     ValidationError,
 )
 from .manager import KeyManager
-from .validator import AsyncAPIKeyValidator
+from .validator import AsyncAPIKeyValidator, sign_request
 
 __version__ = "1.0.0"
 __all__ = [
@@ -19,7 +20,9 @@ __all__ = [
     "InvalidSignatureError",
     "KeyExpiredError",
     "KeyNotFoundError",
+    "KeyRevokedError",
     "ValidationError",
     "AsyncAPIKeyValidator",
     "KeyManager",
+    "sign_request",
 ]

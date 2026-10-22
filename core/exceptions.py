@@ -21,6 +21,15 @@ class KeyNotFoundError(APIKeyManagerException):
     pass
 
 
+class KeyRevokedError(APIKeyManagerException):
+    """Raised when an operation targets a key that exists but is revoked.
+
+    Distinct from :class:`KeyNotFoundError` so callers can map it to 401
+    (authenticated-but-revoked) instead of 404.
+    """
+    pass
+
+
 class ValidationError(APIKeyManagerException):
     """Raised when API key validation fails for any reason."""
     pass
